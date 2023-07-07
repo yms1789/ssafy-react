@@ -21,10 +21,8 @@ const expectedValue = [
 ];
 
 function run() {
-  let receivedValue;
-
   // 선언형 코드를 여기에 작성합니다.
-
+  let receivedValue = originalValue.map((ele, idx) => ele.key = `programming-${idx + 1}`);
   return receivedValue;
 }
 

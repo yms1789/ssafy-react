@@ -11,7 +11,7 @@ const originalValue = [
 
 const expectedValue = [
   {
-    key: 'programming-0',
+    key: 'programming-1',
     name: '명령형 프로그래밍',
   },
   {
@@ -21,7 +21,12 @@ const expectedValue = [
 ];
 
 function run() {
-  const receivedValue = [...originalValue];
+  const receivedValue = [...originalValue]; // 배열 복사(원본 변형 X)
+
+  for (let i = 0; i < receivedValue.length; i++) {
+    const receivedItem = receivedValue[i];
+    receivedItem.key = `programming-${i + 1}`;
+  }
 
   // 명령형 코드를 여기에 작성합니다.
 

@@ -19,4 +19,30 @@
 // 11. promise & async - await
 // 12. ES Modules
 // 13. class
-console.log('TypeScript 파일 수정');
+
+console.log('es module');
+
+import createRoot, { createElement as h /* hyperscript */, shuffle } from './12-es-modules.js';
+// console.log(EsModules.shuffle([1, 2, 3, 4, 5]));
+// console.log(EsModules.numberWithComma(9_800_456));
+
+console.log(typeof createRoot);
+const originArray = [2, 4, 5, 6];
+const createdArray = shuffle(originArray);
+
+console.assert(Object.is(originArray, createdArray), 'origin create 동일한 객체');
+
+function demo1() {
+
+}
+
+function demo2() {
+  const strongEle = h('strong', {}, 'Virtual');
+  const headingEle = h('h1', { className: 'headline', lang: 'en ' }, strongEle, ' element');
+  const rootEle = document.getElementById('root');
+  const virtualDomRoot = createRoot(rootEle);
+  // console.log(virtualDomRoot);
+  virtualDomRoot.render(headingEle);
+}
+
+demo2();

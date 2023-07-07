@@ -16,12 +16,13 @@ export function numberWithComma(n) {
 
 // --------------------------------------------------------------------------
 
-function createElement(type, props, ...children) {
+// 이름 내보내기
+export function createElement(type, props, ...children) {
   return {
     $$typeof: Symbol('virtual-element'),
     key: null,
     type,
-    props: { ...(props ?? {}), children: [...(props.children ?? []), ...children] },
+    props: { ...props, children: [...(props.children ?? []), ...children] },
   };
 }
 
@@ -71,3 +72,6 @@ class VirtualDomRoot {
 function createRoot(rootElement) {
   return new VirtualDomRoot(rootElement);
 }
+
+// 기본 내보내기
+export default createRoot;

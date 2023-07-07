@@ -34,7 +34,7 @@ function sortBy(data, key) {
   });
 }
 
-const receivedValue = sortBy(initialValue, 'created');
+const receivedValue = sortBy([...initialValue], 'created');
 
 const [initialFirstItem] = initialValue;
 const [receivedFirstItem] = receivedValue;

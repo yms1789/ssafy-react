@@ -13,17 +13,27 @@
 // 아래 코드는 여러 기능이 복합적으로 엉켜 있어 순수하지 못합니다.
 // 코드를 "순수" 함수와 "부수 효과"를 처리하는 함수로 나눠 재구성합니다.
 
-function render(node) {
-  node.innerHTML = 'Loading...';
-
-  fetch('https://random-data-api.com/api/v2/beers')
+function setLoading(isLoading = false, node) {
+  if (!node || node.nodeType !== document.ELEMENT_NODE) {
+    throw new Error('error...');
+  }
+  node.innerHTML = isLoading ? 'Loading...' : '';
+}
+function fetchData(endpoint, node) {
+  fetch(endpoint)
     .then((response) => response.json())
     .then((data) => {
-      const { brand, name, style, hop, malts, alchol } = data;
-      const beerElement = document.createElement('div');
-      beerElement.classList.add('beer');
-      beerElement.insertAdjacentHTML(
-        'beforeend',
+      render(data, node);
+    })
+    .catch((error) => console.error(error.message));
+
+}
+function render(data, node) {
+  const { brand, name, style, hop, malts, alchol } = data;
+  const beerElement = document.createElement('div');
+  beerElement.classList.add('beer');
+  beerElement.insertAdjacentHTML(
+    'beforeend',
         /* html */ `
           <h2>${brand} ${name}</h2>
           <ul>
@@ -33,13 +43,19 @@ function render(node) {
             <li><b>alchol</b>: ${alchol}</li>
           </ul>
         `
-      );
-      node.innerHTML = '';
-      node.append(beerElement);
-    })
-    .catch((error) => console.error(error.message));
+  );
+  node.insertAdjacementElement('beforeend', beerElement);
+}
+
+async function sideEffects(node) { // 내부 코드 전체가 side-effect에 해당
+  // node.innerHTML = 'Loading...';
+  setLoading(true, node);
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  const data = await fetchData('https://random-data-api.com/api/v2/beers');
+  render(data);
+  setLoading(false, node);
 }
 
 const rootElement = document.getElementById('root');
 
-render(rootElement);
+sideEffects(rootElement);
