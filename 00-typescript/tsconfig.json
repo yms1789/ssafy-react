@@ -9,6 +9,6 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "src/04-spread-syntax.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "scripts", "dist"]
 }

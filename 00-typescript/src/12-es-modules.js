@@ -1,7 +1,7 @@
 // --------------------------------------------------------------------------
 // ES Modules
 
-export function shuffle(list) {
+function shuffle(list) {
   let _ = [...list];
   for (let i = _.length - 1; i > 0; --i) {
     let k = Math.floor(Math.random() * (i + 1));
@@ -10,18 +10,18 @@ export function shuffle(list) {
   return _;
 }
 
-export function numberWithComma(n) {
+function numberWithComma(n) {
   return n.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 // --------------------------------------------------------------------------
 
-function createElement(type, props, ...children) {
+function createElement(type, props = {}, ...children) {
   return {
     $$typeof: Symbol('virtual-element'),
-    key: null,
     type,
-    props: { ...(props ?? {}), children: [...(props.children ?? []), ...children] },
+    key: props?.key ?? null,
+    props: { ...props, children: [...(props?.children ?? []), ...children] },
   };
 }
 
@@ -31,11 +31,11 @@ class VirtualDomRoot {
   }
 
   #parseVNode(vNode) {
+    if (typeof vNode === 'string') return vNode;
+
     const { type, props } = vNode;
 
     const element = document.createElement(type);
-
-    console.log(props);
     const children = props.children;
     delete props.children;
 

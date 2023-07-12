@@ -1,6 +1,7 @@
 // --------------------------------------------------------------------------
 // ES Modules
 
+// 이름 내보내기
 export function shuffle(list) {
   let _ = [...list];
   for (let i = _.length - 1; i > 0; --i) {
@@ -28,6 +29,9 @@ export function createElement(type, props, ...children) {
 
 class VirtualDomRoot {
   constructor(rootElement) {
+    if (!rootElement || rootElement.nodeType !== document.ELEMENT_NODE) {
+      throw new Error('rootElement는 DOM 요소여야 합니다.');
+    }
     this.rootElement = rootElement;
   }
 
@@ -35,8 +39,6 @@ class VirtualDomRoot {
     const { type, props } = vNode;
 
     const element = document.createElement(type);
-
-    console.log(props);
     const children = props.children;
     delete props.children;
 

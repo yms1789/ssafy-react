@@ -1,13 +1,18 @@
 // --------------------------------------------------------------------------
 // ES5 Constructor (like. Class) with Module Pattern (IIFE)
+
 import ApiClient from './ApiClient.js';
+
 const todosService = new ApiClient(
   'https://jsonplaceholder.typicode.com/todos'
 );
+
 // --------------------------------------------------------------------------
+
 function run() {
   run.readAll();
 }
+
 run.readAll = () =>
   todosService
     .readAll()
@@ -17,6 +22,7 @@ run.readAll = () =>
     .catch((error) => {
       console.error(error.message);
     });
+
 run.readOne = () =>
   todosService
     .readOne(1)
@@ -26,6 +32,7 @@ run.readOne = () =>
     .catch((error) => {
       console.error(error.message);
     });
+
 run.create = () =>
   todosService
     .create({
@@ -40,6 +47,7 @@ run.create = () =>
     .catch((error) => {
       console.error(error.message);
     });
+
 run.update = () =>
   todosService
     .update(2, {
@@ -51,6 +59,7 @@ run.update = () =>
     .catch((error) => {
       console.error(error.message);
     });
+
 run.delete = () =>
   todosService
     .delete(3)
@@ -60,6 +69,5 @@ run.delete = () =>
     .catch((error) => {
       console.error(error.message);
     });
+
 run();
-
-

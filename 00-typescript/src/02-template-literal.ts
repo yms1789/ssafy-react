@@ -1,5 +1,6 @@
 // --------------------------------------------------------------------------
 // template literal
+
 {
   const koreanFoods: {
     caption: string;
@@ -45,21 +46,21 @@
     }[];
   }): string {
     return `
-    <table class="table">
-      <caption class="sr-only">${data.caption}</caption>
-      ${data.rows
-        .map(
-          (item) =>
+      <table class="table">
+        <caption class="sr-only">${data.caption}</caption>
+        ${data.rows
+          .map(
+            (item) =>
+              `
+              <tr>
+                <th>${item.headline}</th>
+                <td>${item.content}</td>
+              </tr>
             `
-            <tr>
-              <th>${item.headline}</th>
-              <td>${item.content}</td>
-            </tr>
-          `
-        )
-        .join('')}
-    </table>
-  `;
+          )
+          .join('')}
+      </table>
+    `;
   }
 
   function renderTable(data: {

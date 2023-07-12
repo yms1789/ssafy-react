@@ -15,45 +15,49 @@
 
 function setLoading(isLoading = false, node) {
   if (!node || node.nodeType !== document.ELEMENT_NODE) {
-    throw new Error('error...');
+    throw new Error('....');
   }
+
   node.innerHTML = isLoading ? 'Loading...' : '';
 }
-function fetchData(endpoint, node) {
-  fetch(endpoint)
-    .then((response) => response.json())
-    .then((data) => {
-      render(data, node);
-    })
-    .catch((error) => console.error(error.message));
 
+function fetchData(endpoint) {
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .catch((error) => console.error(error.message));
 }
+
 function render(data, node) {
   const { brand, name, style, hop, malts, alchol } = data;
   const beerElement = document.createElement('div');
   beerElement.classList.add('beer');
   beerElement.insertAdjacentHTML(
     'beforeend',
-        /* html */ `
-          <h2>${brand} ${name}</h2>
-          <ul>
-            <li><b>style</b>: ${style}</li>
-            <li><b>hop</b>: ${hop}</li>
-            <li><b>malts</b>: ${malts}</li>
-            <li><b>alchol</b>: ${alchol}</li>
-          </ul>
-        `
+    /* html */ `
+        <h2>${brand} ${name}</h2>
+        <ul>
+          <li><b>style</b>: ${style}</li>
+          <li><b>hop</b>: ${hop}</li>
+          <li><b>malts</b>: ${malts}</li>
+          <li><b>alchol</b>: ${alchol}</li>
+        </ul>
+      `
   );
-  node.insertAdjacementElement('beforeend', beerElement);
+
+  setLoading(false, node);
+
+  // node.append(beerElement);
+  node.insertAdjacentElement('beforeend', beerElement);
 }
 
-async function sideEffects(node) { // 내부 코드 전체가 side-effect에 해당
-  // node.innerHTML = 'Loading...';
+async function sideEffects(node) {
   setLoading(true, node);
+
   await new Promise((resolve) => setTimeout(resolve, 1000));
+
   const data = await fetchData('https://random-data-api.com/api/v2/beers');
-  render(data);
-  setLoading(false, node);
+
+  render(data, node);
 }
 
 const rootElement = document.getElementById('root');

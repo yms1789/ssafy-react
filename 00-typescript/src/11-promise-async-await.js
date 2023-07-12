@@ -4,6 +4,19 @@
 function main() {
   console.log('start!');
 
+  // Promise + Async function with await
+  delayPromise().then(async () => {
+    console.log('1s');
+    await delayPromise();
+    console.log('2s');
+    await delayPromise();
+    console.log('3s');
+    await delayPromise(500);
+    console.log('3.5s');
+    await delayPromise(1500);
+    console.log('4.5s');
+  });
+
   // callback hell
   // 참고: https://bit.ly/3r5iUfe
   // delay(() => {
@@ -18,20 +31,6 @@ function main() {
   //     });
   //   });
   // });
-
-  // Promise + Async function with await
-  delayPromise().then(async () => {
-    console.log('1s');
-    await delayPromise();
-    console.log('2s');
-    await delayPromise();
-    console.log('3s');
-    await delayPromise();
-    console.log('4s');
-    await delayPromise(1500);
-    console.log('5.5s');
-    await delayPromise();
-  });
 }
 
 function delay(callback, time = 1000) {
@@ -39,9 +38,9 @@ function delay(callback, time = 1000) {
 }
 
 function delayPromise(time = 1000) {
-  return new Promise((resolve => {
+  return new Promise((resolve) => {
     setTimeout(resolve, time);
-  }));
+  });
 }
 
 main();

@@ -16,12 +16,12 @@ function printTopic(topic) {
   return `[printTopic] "${topic}"에 대해 관심을 갖고 학습합니다.`;
 }
 
-function renderTopic(topic, node) { // impure
+function renderTopic(topic, node) {
   const topicContent = `[renderTopic] "${topic}"에 대해 관심을 갖고 학습합니다.`;
   node.textContent = topicContent;
 }
 
-function fetchTopic(topic, size = 2) { // impure
+function fetchTopic(topic, size = 2) {
   fetch(`https://random-data-api.com/api/v2/beers?size=${size}`)
     .then((response) => response.json())
     .then((data) =>

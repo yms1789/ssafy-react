@@ -1,7 +1,7 @@
 // --------------------------------------------------------------------------
 // ES5 Constructor (like. Class) with Module Pattern (IIFE)
 
-const _ApiClient = (function () {
+const ApiClient = (function () {
   function ApiClient(endpoint) {
     this._endpoint = endpoint;
   }

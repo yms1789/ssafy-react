@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 // --------------------------------------------------------------------------
 // 📌 [TypeScript → ECMAScript(JavaScript)]
 // --------------------------------------------------------------------------
@@ -20,29 +20,41 @@
 // 12. ES Modules
 // 13. class
 
-console.log('es module');
+// console.log('es module');
 
-import createRoot, { createElement as h /* hyperscript */, shuffle } from './12-es-modules.js';
+import createRoot, {
+  shuffle,
+  createElement as h /* hyperscript */,
+} from './12-es-modules.js';
+
 // console.log(EsModules.shuffle([1, 2, 3, 4, 5]));
 // console.log(EsModules.numberWithComma(9_800_456));
 
-console.log(typeof createRoot);
-const originArray = [2, 4, 5, 6];
-const createdArray = shuffle(originArray);
-
-console.assert(Object.is(originArray, createdArray), 'origin create 동일한 객체');
-
 function demo1() {
+  const originalArray = [2, 4, 65, 23];
+  const createdArray = shuffle(originalArray);
 
+  console.assert(
+    !Object.is(originalArray, createdArray),
+    '🔴 originalArray와 createdArray는 동일한 객체입니다.'
+  );
 }
 
 function demo2() {
-  const strongEle = h('strong', {}, 'Virtual');
-  const headingEle = h('h1', { className: 'headline', lang: 'en ' }, strongEle, ' element');
-  const rootEle = document.getElementById('root');
-  const virtualDomRoot = createRoot(rootEle);
+  const strongElement = h('strong', {}, 'Virtual');
+
+  const headingElement = h(
+    'h1',
+    { className: 'headline', lang: 'en' },
+    strongElement,
+    ' Element'
+  );
+
+  const rootElement = document.getElementById('root');
+  const virtualDomRoot = createRoot(rootElement);
   // console.log(virtualDomRoot);
-  virtualDomRoot.render(headingEle);
+
+  virtualDomRoot.render(headingElement);
 }
 
 demo2();

@@ -21,8 +21,15 @@ const expectedValue = [
 ];
 
 function run() {
+  // let receivedValue = originalValue.slice();
+  // let receivedValue = [...originalValue];
+
   // 선언형 코드를 여기에 작성합니다.
-  let receivedValue = originalValue.map((ele, idx) => ele.key = `programming-${idx + 1}`);
+  let receivedValue = originalValue.map((item, index) => {
+    item.key = `programming-${index + 1}`;
+    return item;
+  });
+
   return receivedValue;
 }
 
