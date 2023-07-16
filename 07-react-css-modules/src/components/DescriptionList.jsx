@@ -1,7 +1,7 @@
-import { oneOf, arrayOf, string, bool, func, shape } from 'prop-types';
-import vitePath from '../assets/vite.svg';
-import '../styles/DescriptoinList.css';
-import reactPath from '/react.svg';
+import { arrayOf, bool, exact, func, oneOf, string } from "prop-types";
+import "@/styles/DescriptoinList.css";
+import vitePath from "@/assets/vite.svg";
+import reactPath from "/react.svg";
 
 function DescriptionList({
   statusMessage,
@@ -23,8 +23,8 @@ function DescriptionList({
       <dd>
         <p>이미지 타입(image type)에 따라 렌더링 여부를 결정합니다.</p>
         <div className="conditionalRendering">
-          <img src={imageType === 'vite' ? vitePath : reactPath} alt="" />
-          <span>{imageType === 'vite' ? 'Vite' : 'React'}</span>
+          <img src={imageType === "vite" ? vitePath : reactPath} alt="" />
+          <span>{imageType === "vite" ? "Vite" : "React"}</span>
         </div>
       </dd>
       <dd style={{ marginTop: 12 }}>
@@ -74,12 +74,18 @@ function DescriptionList({
   );
 }
 
+DescriptionList.defaultProps = {
+  renderList: () => {},
+};
+
 DescriptionList.propTypes = {
-  statusMessage: arrayOf(string).isRequired,
-  imageType: oneOf(['react', 'vite']).isRequired,
+  statusMessage: arrayOf(
+    oneOf(["⌛️ 대기", "⏳ 로딩 중...", "✅ 로딩 성공!", "❌ 로딩 실패."])
+  ).isRequired,
+  imageType: oneOf(["react", "vite"]).isRequired,
   isShowReactImage: bool.isRequired,
-  renderList: func.isRequired,
-  reactLibrary: shape({
+  renderList: func,
+  reactLibrary: exact({
     name: string,
     author: string,
     writtenIn: string,

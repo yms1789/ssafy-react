@@ -1,9 +1,10 @@
+import DescriptionList from './components/DescriptionList';
+import ScrollButton from './components/ScrollButton';
 import './styles/App.css';
 
-import ScrollButton from './components/ScrollButton';
-import DescriptionList from './components/DescriptionList';
+/* -------------------------------------------------------------------------- */
 
-let imageType = 'react'; // 'react' | 'vite'
+const imageType = 'react';
 
 const isShowReactImage = true;
 
@@ -27,17 +28,20 @@ const renderList = ({ isReverse = false } = {}) => {
   return data.map((message, index) => <li key={index}>{message}</li>);
 };
 
-const handleScrollMove = ({ currentTarget, target }) => {
-  const { top } = currentTarget.getBoundingClientRect();
-  const appElement = document.querySelector('.App');
+const handleScrollMove = ({
+  currentTarget,
+  target,
+}: React.MouseEvent<HTMLDivElement>) => {
+  const { top } = (currentTarget as HTMLDivElement).getBoundingClientRect();
+  const appElement = document.querySelector('.App') as HTMLDivElement;
 
-  if (target.matches('.scrollDown')) {
+  if ((target as HTMLElement).matches('.scrollDown')) {
     appElement.scroll({
       top,
       behavior: 'smooth',
     });
   }
-  if (target.matches('.scrollUp')) {
+  if ((target as HTMLElement).matches('.scrollUp')) {
     appElement.scroll({
       top: 0,
       behavior: 'smooth',
@@ -45,21 +49,23 @@ const handleScrollMove = ({ currentTarget, target }) => {
   }
 };
 
-function App() {
-  const descriptionListProps = {
-    statusMessage,
-    imageType,
-    isShowReactImage,
-    renderList,
-    reactLibrary,
-  };
+/* -------------------------------------------------------------------------- */
 
+function App(): JSX.Element {
   return (
     <div className="App">
       <h1>React 컴포넌트 Props 검사</h1>
       <hr />
       {/* 객체 전개 구문  */}
-      <DescriptionList {...descriptionListProps} />
+      <DescriptionList
+        {...{
+          statusMessage,
+          imageType,
+          isShowReactImage,
+          renderList,
+          reactLibrary,
+        }}
+      />
       <ScrollButton.Group onScroll={handleScrollMove}>
         <ScrollButton />
         <ScrollButton mode="up" />

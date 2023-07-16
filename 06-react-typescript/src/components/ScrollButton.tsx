@@ -1,9 +1,17 @@
-import PropTypes from 'prop-types';
+import { MouseEventHandler } from 'react';
 import '../styles/ScrollButton.css';
 
-function ScrollButton({ mode = 'down', label = '스크롤 다운' }) {
-  const isDown = mode === 'down';
-  const buttonLabel = label ?? `스크롤 ${isDown ? '다운' : '업'}`;
+interface ScrollButtonProps {
+  mode?: 'down' | 'up';
+  label?: string;
+}
+
+function ScrollButton({
+  mode = 'down',
+  label = '스크롤 다운',
+}: ScrollButtonProps): JSX.Element {
+  const isDown: boolean = mode === 'down';
+  const buttonLabel: string = label ?? `스크롤 ${isDown ? '다운' : '업'}`;
 
   return (
     <button
@@ -32,27 +40,22 @@ function ScrollButton({ mode = 'down', label = '스크롤 다운' }) {
   );
 }
 
-// prop-types 라이브러리 활용 Props 타입 검사
-ScrollButton.propTypes = {
-  mode: PropTypes.string,
-  label: PropTypes.string,
-};
+/* -------------------------------------------------------------------------- */
 
-ScrollButton.Group = function ScrollButtonGroup({ onScroll, children }) {
+interface ScrollButtonGroupProps {
+  onScroll: MouseEventHandler<HTMLDivElement>;
+  children: React.ReactNode;
+}
+
+ScrollButton.Group = function ScrollButtonGroup({
+  onScroll,
+  children,
+}: ScrollButtonGroupProps): JSX.Element {
   return (
     <div role="group" className="ScrollButtonGroup" onClick={onScroll}>
       {children}
     </div>
   );
-};
-
-// PropTypes.node -> React.ReactNode
-// PropTypes.element -> React.ReactElement
-// PropTypes.elementType -> React.Component
-
-ScrollButton.Group.propTypes = {
-  onScroll: PropTypes.func,
-  children: PropTypes.node, // React.ReactNode
 };
 
 export default ScrollButton;
